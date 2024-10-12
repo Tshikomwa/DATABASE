@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page_de_Visualisation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" 
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <style>
+        /* Styles de base */
+        body {
+            font-family: 'Times New Roman', serif;
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+    
+        .container {
+            max-width: 1000px;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            text-align: center;
+            width: 90%;
+        }
+    
+        h1, h2, h3, h4, h5 {
+            margin-bottom: 8px;
+        }
+    
+        h1 {
+            font-size: 2rem;
+            color: #f7f3f3;
+        }
+
+        h2 {
+            font-size: 1.3rem;
+            color: #f33232;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            color: #0674f2;
+        }
+    
+        h4, h5 {
+            text-align: center;
+            color: #060000;
+        }
+    
+        h4 {
+            font-size: 1.7rem;
+        }
+    
+        h5 {
+            font-size: 1.4rem;
+        }
+        
+
+        th {
+            margin-top: 0px;
+            border: 1px solid #4a4646;
+            padding: 2px;
+            text-align: center;
+            font-size: 18px; /* Taille modérée pour meilleure lisibilité */
+            background-color: #1475e3;
+            border: 1px solid #000408;
+            font-weight: bold;
+        }
+
+        td {
+            margin-top: 0px;
+            border: 1px solid #4a4646;
+            padding: 2px;
+            text-align: justify;
+            font-size: 13px; /* Taille modérée pour meilleure lisibilité */
+            background-color: #cceaf2;
+            border: 1px solid #080707;
+            font-weight: bold;
+        }
+
+        table img {
+        width: 30px; /* Réglez la largeur souhaitée */
+        height: auto; /* Conserve le ratio d'aspect de l'image */
+        display: block; /* Transforme l'image en un élément de bloc pour que le margin fonctionne */
+        margin: 0 auto; /* Centre l'image horizontalement */
+        }
+
+        .action-buttons {
+            display: block;
+        }
+
+        .btn-blue, .btn-red, .btn-green {
+            display: inline-block;
+            padding: 5px 10px;
+            font-size: 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 2px; /* Espace entre les boutons */
+            text-decoration: none;
+            text-align: center; /* Centre le texte des boutons */
+        }
+
+    
+        .btn-blue {
+            background-color: #0d024a;
+            color: #fff;
+        }
+    
+        .btn-blue:hover {
+            background-color: #328ae9;
+        }
+    
+        .btn-red {
+            background-color: #e40a27;
+            color: #fff;
+        }
+    
+        .btn-red:hover {
+            background-color: #ef7f90;
+        }
+    
+        .btn-green {
+            background-color: #0ff13c;
+            color: #fff;
+        }
+    
+        .btn-green:hover {
+            background-color: #90e783;
+        }
+    
+        /* Logo et Header */
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+        }
+    
+        .logo-left, .logo-right {
+            position: absolute;
+            top: 20px;
+            width: 100px;
+            height: auto;
+        }
+    
+        .logo-left {
+            left: 10px;
+        }
+    
+        .logo-right {
+            right: 10px;
+        }
+
+        /* Section des fonctions */
+        .function-counts {
+            font-size: 14px;
+            float: left; /* Aligne cette section à droite */
+            list-style: none; /* Si vous voulez enlever les puces */
+        }
+
+        .function-counts li {
+            margin-bottom: 0px;
+        }
+
+
+        .header-container {
+            display: flex;
+            justify-content: space-between; /* Espace entre le titre et la recherche */
+            align-items: center; /* Centre verticalement les éléments */
+            margin-bottom: 0px; /* Espace en bas si nécessaire */
+        }
+
+        .search-icon {
+            display: flex;
+            align-items: center; /* Centre verticalement le contenu de la recherche */
+            size: auto;
+        }
+
+
+/* Media Queries */
+    @media (max-width: 576px) and (orientation: portrait) {
+        h1 {
+            font-size: 0.9rem;
+            }
+        h2 {
+            font-size: 0.8rem;
+            }
+        h3 {
+            font-size: 0.9rem;
+            }
+        h4 {
+            font-size: 0.8rem;
+            }
+        h5 {
+            font-size: 0.8rem;
+            }
+        
+
+        body {
+            font-family: 'Times New Roman', serif;
+            font-size: 0.7rem;
+            background: linear-gradient(135deg, #f4f4f4, #e0e0e0);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .my-table {
+                margin: 0 auto; /* Set left and right margins to 'auto' to center the table */
+            }
+        th, td {
+            margin-top: auto;
+            border: 1px solid #4a4646;
+            padding: 2px;
+            text-align: justify;
+            font-size: 6px; /* Taille modérée pour meilleure lisibilité */
+            background-color: #bde7f2;
+            border: 1px solid #695c5c;
+            font-weight: bold;
+            }
+        table img {
+            width: 20px; /* Réglez la largeur souhaitée */
+            height: auto; /* Conserve le ratio d'aspect de l'image */
+            margin-top: 0px; /* Réduit la marge au-dessus du tableau */
+            padding-top: 0px; /* Réduit le padding au-dessus du tableau */
+            }
+
+            .action-buttons {
+            display: block;
+        }
+
+        .btn-blue, .btn-red, .btn-green {
+            display: inline-block;
+            padding: 5px 10px;
+            font-size: 5px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 2px; /* Espace entre les boutons */
+            text-decoration: none;
+            text-align: center; /* Centre le texte des boutons */
+        }
+
+
+        .action-buttons a {
+            display: block;
+            text-decoration: none;
+            color: #ffffff;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            cursor: pointer;
+            font-size: 10px;
+            font-weight: bold;
+        }
+            .logo-left, .logo-right {
+                display: none;
+            }
+        }
+        /* Section des fonctions */
+        .function-counts {
+            font-size: 14px;
+        }
+    
+        .function-counts li {
+            margin-bottom: 0px;
+        }
+
+        @media (max-width: 1000px) and (orientation: landscape) {
+            h1 {
+                font-size: 1.3rem;
+            }
+
+            h2 {
+                font-size: 1rem;
+            }
+
+            h3 {
+                font-size: 1.2rem;
+            }
+
+            h4 {
+                font-size: 1rem;
+                text-align: justify;
+            }
+            h5 {
+            font-size: 1rem;
+            }
+        
+
+            .logo-left, .logo-right {
+                display: none;
+            }
+        }
+
+        .button-container {
+            flex-direction: row;
+            justify-content: space-around;
+            max-width: 600px;
+            margin: 20px auto 0 auto;
+        }
+
+        .button-container a, .button-container button {
+            width: 45%;
+        }
+        
+        /* Section des fonctions */
+        .function-counts {
+            font-size: 14px;
+        }
+    
+        .function-counts li {
+            margin-bottom: 0px;
+        }
+    </style>
+        
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Fonction pour compter les enregistrements par fonction
+            function countByFunction() {
+                var functionCounts = {};
+    
+                // Parcourir chaque exploitant et compter les enregistrements par fonction
+                /*{% for exploitant in exploiteurs %}*/
+                var fonction = "{{ exploitant.fonction }}";
+                functionCounts[fonction] = (functionCounts[fonction] || 0) + 1;
+                /*{% endfor %}*/
+
+    
+                // Afficher les résultats dans la section correspondante
+                var functionCountsList = document.getElementById('functionCounts');
+                for (var fonction in functionCounts) {
+                    var count = functionCounts[fonction];
+                    var listItem = document.createElement('li');
+                    listItem.textContent = fonction + ': ' + count;
+                    functionCountsList.appendChild(listItem);
+                }
+            }
+    
+            // Appeler la fonction pour compter les enregistrements par fonction
+            countByFunction();
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Fonction pour vérifier le code d'accès
+            function checkAccessCode(link, correctCode) {
+                // Saisie du code d'accès par l'utilisateur
+                var enteredCode = prompt('Veuillez saisir le code d\'accès :');
+                
+                // Vérification du code d'accès
+                if (enteredCode === correctCode) {
+                    // Redirection vers la page correspondante
+                    window.location.href = link.getAttribute('data-href');
+                } else {
+                    alert('Code d\'accès incorrect. Veuillez réessayer.');
+                }
+            }
+
+            // Écouteurs d'événements pour les liens "Mettre à jour" et "Supprimer"
+            var updateLinks = document.querySelectorAll('.update-link');
+            updateLinks.forEach(function(link) {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    // Utiliser le code d'accès spécifique pour ce lien
+                    checkAccessCode(link, link.getAttribute('data-access-code'));
+                });
+            });
+
+            var deleteLinks = document.querySelectorAll('.delete-link');
+            deleteLinks.forEach(function(link) {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    // Utiliser le code d'accès spécifique pour ce lien
+                    checkAccessCode(link, link.getAttribute('data-access-code'));
+                });
+            });
+
+            var deleteLinks = document.querySelectorAll('.detail-link');
+            deleteLinks.forEach(function(link) {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    // Utiliser le code d'accès spécifique pour ce lien
+                    checkAccessCode(link, link.getAttribute('data-access-code'));
+                });
+            });
+        });
+    </Script>    
+
+
+    </head>
+    
+    <body>
+        {% load static %}
+            <header>
+                <img src="{% static 'drc.png' %}" alt="Logo gauche" class="logo-left">
+                <h1>REPUBLIQUE DEMOCRATIQUE DU CONGO</h1>
+                <h2>PROVINCE DU LUALABA</h2>
+                <h3>SOCIETE COOPERATIVE MINIERE POUR LE DEVELOPPEMENT ET LE SOCIAL</h3>
+                <h1>CMDS COOP-CA</h1>
+                <img src="{% static 'lg.jpg' %}" alt="Logo droite" class="logo-right">
+            </header>
+            <h5>BASE DE DONNEES DES EXPLOITANTS MINIERS ARTISANAUX</h5>
+            <!-- Nombre total des exploitants -->
+            <div class="header-container">
+                <h2>Nombre de Miniers Artisanaux Dûment Enregistrés: {{ total_exploitants }}</h2>
+                <div class="search-icon">
+                    <form method="GET" action="">
+                        <label for="search" style="margin-right: 10px;">Recherche:</label>
+                        <input type="text" id="search" name="search" class="search-input" value="{{ search_query }}">
+                        <button style="border: none; background: transparent;">
+                            <img src="{% static 'icon.png' %}" alt="Recherche" class="search-icon" style="width: 25px; height: 25px;">
+                        </button>
+                    </form>
+                </div>
+            </div>           
+        
+            <div class="navigation-links">
+                <a href="{% url 'recording' %}" class="register-another btn-blue">Enregistrer un autre</a>
+                <a href="{% url 'accueil' %}" class="return-home btn-red">Retour à l'accueil</a>
+            </div>
+            <!-- Ajouter une section pour afficher le nombre d'enregistrements par fonction -->
+            <div class="function-counts">
+                <ul id="functionCounts"></ul>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>CODE</th>
+                        <th>NOM</th>
+                        <th>POST-NOM</th>
+                        <th>PRENOM</th>
+                        <th>SEXE</th>
+                        <!-- Champs masqués -->
+                        <!-- <th>LIEU DE NAISSANCE</th> -->
+                        <!-- <th>DATE DE NAISSANCE</th> -->
+                        <!-- <th>ETAT-CIVIL</th> -->
+                        <!-- <th>NOM DU (DE LA) CONJOINT(E)</th> -->
+                        <!-- <th>NOMBRE D'ENFANT(S)</th> -->
+                        <!-- <th>ADRESSE</th> -->
+                        <!-- <th>NIVEAU D'ETUDE</th> -->
+                        <th>FONCTION</th>
+                        <!-- <th>CONTACT</th> -->
+                        <th>DATE D'ENRG</th>
+                        <th>DATE DE MODIF</th>
+                        <th>PHOTO</th>
+                        <th>QR CODE</th>
+                        <th>ACTIONS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for exploitant in exploiteurs %}
+                    <tr {% if exploitant.nom == search_value or exploitant.post_nom == search_value or exploitant.prenom == search_value or forloop.counter == search_value %}class="highlight-row"{% endif %}>
+                        <td>{{ exploitant.code }}</td>
+                        <td>{{ exploitant.nom }}</td>
+                        <td>{{ exploitant.post_nom }}</td>
+                        <td>{{ exploitant.prenom }}</td>
+                        <td>{{ exploitant.sexe }}</td>
+                        <!-- Champs masqués -->
+                        <!-- <td>{{ exploitant.lieu_naissance }}</td> -->
+                        <!-- <td>{{ exploitant.date_naissance }}</td> -->
+                        <!-- <td>{{ exploitant.etat_civil }}</td> -->
+                        <!-- <td>{{ exploitant.nom_conjoint }}</td> -->
+                        <!-- <td>{{ exploitant.nb_enfants }}</td> -->
+                        <!-- <td>{{ exploitant.adresse }}</td> -->
+                        <!-- <td>{{ exploitant.niveau_etude }}</td> -->
+                        <td>{{ exploitant.fonction }}</td>
+                        <!-- <td>{{ exploitant.telephone }}</td> -->
+                        <td>{{ exploitant.date_enregistrement }}</td>
+                        <td>{{ exploitant.date_mise_a_jour }}</td>
+                        <td><img src="{% url 'get_image' exploitant.id 'photo' %}" alt="Photo" style="max-width: 100px; max-height: 100px;"></td>
+                        <td><img src="{% url 'get_image' exploitant.id 'qrcode' %}" alt="QR Code" style="max-width: 100px; max-height: 100px;"></td>
+                        <!-- Actions -->
+                        <td>
+                            <!-- Lien Mettre à jour avec un code d'accès fixe -->
+                            <a href="{% url 'update_exploitant' exploitant.id %}" 
+                               data-href="{% url 'update_exploitant' exploitant.id %}" 
+                               data-access-code="CMDS@0031" 
+                               class="update-button btn-blue update-link">Update</a>
+                            
+                          
+                            <!-- Lien Détail sans code d'accès requis -->
+                            <a href="{% url 'detail_exploitant' exploitant.id %}" 
+                               data-href="{% url 'detail_exploitant' exploitant.id %}"
+                               data-access-code="CMDS@0029"  
+                               class="detail-button btn-green detail-link">Detail</a>
+
+                                <!-- Lien Supprimer avec un code d'accès fixe -->
+                                <a href="{% url 'delete_exploitant' exploitant.id %}" 
+                                data-href="{% url 'delete_exploitant' exploitant.id %}" 
+                                data-access-code="CMDS@0022" 
+                                class="delete-button btn-red delete-link">Delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </body>
+    
+    </html>
+    
+
+
+
+
+

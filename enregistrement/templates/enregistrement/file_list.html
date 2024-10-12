@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des fichiers</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+         body {
+            font-family: 'Times New Roman', serif;
+            font-size: 1.3rem;
+            background: linear-gradient(135deg, #f4f4f4, #e0e0e0);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+    
+        .container {
+            max-width: 1000px;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            text-align: center;
+            width: 90%;
+        }
+    
+        h1, h2, h3, h4 {
+            margin-bottom: 5px;
+            text-align: center;
+        }
+    
+        h1 {
+            font-size: 2rem;
+            color: #f7f3f3;
+        }
+    
+        h2 {
+            font-size: 1.3rem;
+            color: #f33232;
+        }
+    
+        h3 {
+            font-size: 1.5rem;
+            color: #0674f2;
+        }
+    
+        h4 {
+            font-size: 1.5rem;
+            color: #00060c;
+        }
+    
+        p {
+            line-height: 1.6;
+            color: #333;
+            text-align: justify;
+        }
+    
+        .button-container {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    
+        .button-container a, .button-container button {
+            display: inline-block;
+            margin: 10px 20px;
+            padding: 12px 20px;
+            text-decoration: none;
+            color: #ffffff;
+            background-color: #4f46e5;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            cursor: pointer;
+            font-size: 10px;
+            border: none;
+            width: 100%;
+            max-width: 300px;
+            font-weight: bold;
+        }
+    
+        .button-container a:hover, .button-container button:hover {
+            background-color: #3730a3;
+            transform: translateY(-3px);
+        }
+    
+        .button-container a.login {
+            background-color: #34d399;
+        }
+    
+        .button-container a.login:hover {
+            background-color: #059669;
+        }
+    
+        .button-container a.register {
+            background-color: #ce0909;
+        }
+    
+        .button-container a.register:hover {
+            background-color: #d13069;
+        }
+    
+        .action-buttons a {
+            display: block;
+            margin: 15px 0;
+            padding: 12px 20px;
+            text-decoration: none;
+            color: #ffffff;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    
+        .action-buttons a:hover {
+            transform: translateY(-3px);
+        }
+    
+        .action-buttons a.ress_hum {
+            background-color: #007bff;
+        }
+    
+        .action-buttons a.ress_hum:hover {
+            background-color: #0056b3;
+        }
+    
+        .action-buttons a.ges_adm {
+            background-color: #28a745;
+        }
+    
+        .action-buttons a.ges_adm:hover {
+            background-color: #1e7e34;
+        }
+    
+        .action-buttons a.q_t {
+            background-color: #dc3545;
+        }
+    
+        .action-buttons a.q_t:hover {
+            background-color: #c82333;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .header-content {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+        .header-text {
+            flex: 1;
+        }
+        .logo-left, .logo-right {
+            width: 120px;
+            height: auto;
+        }        
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            margin-top: auto;
+            font-size: 0.9rem;
+        }
+        /* Media Queries */
+        @media (max-width: 576px) and (orientation: portrait) {
+            h1 {
+                font-size: 0.9rem;
+            }
+            h2 {
+                font-size: 0.8rem;
+            }
+            h3 {
+                font-size: 0.9rem;
+            }
+            h4 {
+                font-size: 0.8rem;
+            }
+            h5 {
+                font-size: 0.8rem;
+            }
+    
+            body {
+            font-family: 'Times New Roman', serif;
+            font-size: 0.7rem;
+            background: linear-gradient(135deg, #f4f4f4, #e0e0e0);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        footer {
+            font-size: 0.8rem;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            margin-top: auto;
+            font-weight: bold;
+            width: 100%;
+        }
+    
+        .action-buttons a {
+            display: block;
+            text-decoration: none;
+            color: #ffffff;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            cursor: pointer;
+            font-size: 10px;
+            font-weight: bold;
+        }
+            .logo-left, .logo-right {
+                display: none;
+            }
+        }
+    
+        @media (max-width: 1000px) and (orientation: landscape) {
+            h1 {
+                font-size: 1.3rem;
+            }
+    
+            h2 {
+                font-size: 1rem;
+            }
+    
+            h3 {
+                font-size: 1.2rem;
+            }
+    
+            h4 {
+                font-size: 1rem;
+                text-align: justify;
+            }
+    
+            .logo-left, .logo-right {
+                display: none;
+            }
+        }
+    
+        @media(min-width: 576px) {
+            footer {
+                font-size: 1rem;
+            }
+        }
+    
+        .button-container {
+            flex-direction: row;
+            justify-content: space-around;
+            max-width: 600px;
+            margin: 20px auto 0 auto;
+        }
+    
+        .button-container a, .button-container button {
+            width: 45%;
+        }
+
+    </style>
+
+</head>
+<body>
+    {% load static %}
+    <header>
+        <div class="header-content">
+            <img src="{% static 'drc.png' %}" alt="Logo gauche" class="logo-left">
+            <div class="header-text">
+                <h1>REPUBLIQUE DEMOCRATIQUE DU CONGO</h1>
+                <h2>PROVINCE DU LUALABA</h2>
+                <h3>COOPERATIVE MINIERE POUR LE DEVELOPPEMENT ET LE SOCIAL</h3>
+                <h1>CMDS COOP-CA</h1>
+            </div>
+            <img src="{% static 'lg.jpg' %}" alt="Logo droite" class="logo-right">
+        </div>
+    </header>
+
+
+    <div class="container">
+        <h2>Fichiers de l'exploitant <strong>{{ exploitant }}</strong></h2>
+        <ul class="list-group">
+            {% for file in files %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <!-- Affichage tronqué du nom du fichier à 18 lettres -->
+                    <span>{{ file.file.name|slice:":18" }}{% if file.file.name|length > 18 %}...{% endif %}</span>
+                
+                    <!-- Lien pour télécharger le fichier dans un nouvel onglet -->
+                    <a href="{% url 'download_file' file.id %}" target="blank" class="btn btn-success btn-sm">Télécharger</a>
+                </li>
+            {% empty %}
+                <li class="list-group-item">Aucun fichier trouvé.</li>
+            {% endfor %}
+        </ul>
+        
+        <a href="{% url 'upload_file' exploitant_id=exploitant.id %}" class="btn btn-primary mt-3">Téléverser un fichier</a>
+        <a href="{% url 'detail_exploitant' exploitant.id %}" class="btn btn-secondary mt-3">Retour</a>
+    </div>
+
+    <footer>
+        &copy; 2024 CMDS COOP-CA. Tous droits réservés.
+    </footer>
+</body>
+</html>
+
+
+
+

@@ -1,0 +1,289 @@
+<!-- visualiser_incidents.html -->
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistiques des Incidents - CMDS COOP-CA</title>
+    <style>
+        /* Styles généraux */
+        body {
+            font-family: 'Times New Roman', serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1, h2, h3, h4, h5 {
+            margin-bottom: 8px;
+        }
+    
+        h1 {
+            font-size: 2rem;
+            color: #f7f3f3;
+        }
+
+        h2 {
+            font-size: 1.3rem;
+            color: #f33232;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            color: #0674f2;
+        }
+    
+        h4, h5 {
+            text-align: center;
+            color: #060000;
+        }
+    
+        h4 {
+            font-size: 1.7rem;
+        }
+    
+        h5 {
+            font-size: 1.4rem;
+        }
+
+        table {
+            width: 100%;
+            margin: 20px 0;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 8px;
+            border: 1px solid #ccc;
+            text-align: center;
+            font-size: 12px;
+            background-color: #bde7f2;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 5px;
+            text-decoration: none;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn-red {
+            background-color: #e40a27;
+        }
+
+        .btn-blue {
+            background-color: #0d024a;
+        }
+
+        .btn:hover {
+            opacity: 0.8;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        .logo-left, .logo-right {
+            position: absolute;
+            top: 20px;
+            width: 100px;
+            height: auto;
+        }
+
+        .logo-left {
+            left: 10px;
+        }
+
+        .logo-right {
+            right: 10px;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            margin-top: auto;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 576px) {
+        h1 {
+            font-size: 0.9rem;
+            }
+        h2 {
+            font-size: 0.8rem;
+            }
+        h3 {
+            font-size: 0.9rem;
+            }
+        h4 {
+            font-size: 0.8rem;
+            }
+        h5 {
+            font-size: 0.8rem;
+            }
+        
+
+        body {
+            font-family: 'Times New Roman', serif;
+            font-size: 0.7rem;
+            background: linear-gradient(135deg, #f4f4f4, #e0e0e0);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+            .btn {
+                font-size: 12px;
+                padding: 8px 15px;
+            }
+
+            table {
+            width: 100%;
+            margin: 20px 0;
+            border-collapse: collapse;
+            }
+
+            th, td {
+            padding: 8px;
+            border: 1px solid #ccc;
+            text-align: justify;
+            font-size: 5px;
+            background-color: #bde7f2;
+            }
+
+            .logo-left, .logo-right {
+                display: none;
+            }
+        }
+
+        @media (max-width: 1000px) and (orientation: landscape) {
+            h1 {
+                font-size: 1.3rem;
+            }
+
+            h2 {
+                font-size: 1rem;
+            }
+
+            h3 {
+                font-size: 1.2rem;
+            }
+
+            h4 {
+                font-size: 1rem;
+                text-align: justify;
+            }
+            h5 {
+            font-size: 1rem;
+            }
+        
+
+            .logo-left, .logo-right {
+                display: none;
+            }
+        }
+    </style>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Compter le nombre de lignes dans le tableau
+            var totalRows = document.querySelectorAll('.incident-row').length;
+            // Afficher le total dans l'élément HTML
+            document.getElementById('total-cases-value').textContent = totalRows + " lignes enregistrées";
+        });
+    </script>
+</head>
+
+<body>
+    {% load static %}
+    <header>
+        <img src="{% static 'drc.png' %}" alt="Logo gauche" class="logo-left">
+        <h1>REPUBLIQUE DEMOCRATIQUE DU CONGO</h1>
+        <h2>PROVINCE DU LUALABA</h2>
+        <h3>SOCIETE COOPERATIVE MINIERE POUR LE DEVELOPPEMENT ET LE SOCIAL</h3>
+        <h1>CMDS COOP-CA</h1>
+        <img src="{% static 'lg.jpg' %}" alt="Logo droite" class="logo-right">
+    </header>
+
+    <div class="container">
+        <h2>STATISTIQUES DES INCIDENTS</h2>
+
+        <div>
+            <a href="{% url 'accueil' %}" class="btn btn-red">Retour à l'accueil</a>
+            <a href="{% url 'enregistrer_incident' %}" class="btn btn-blue">Enregistrer un autre cas</a>
+            <div id="total-cases">
+                <p>Total : <span id="total-cases-value">0</span></p>
+            </div>  
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Lieu</th>
+                    <th>Type</th>
+                    <th>Nombre de cas</th>
+                    <th>Noms des accidentés</th>
+                    <th>Causes</th>
+                    <th>Descriptions</th>
+                    <th>Rapporteur</th>
+                    <th>Propriétaire du puits</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for incident in incidents %}
+                <tr class="incident-row">
+                    <td>{{ incident.date_incident }}</td>
+                    <td>{{ incident.lieu }}</td>
+                    <td>{{ incident.type_incident }}</td>
+                    <td>{{ incident.Nombre_cas }}</td>
+                    <td>{{ incident.Noms_accidentes }}</td>
+                    <td>{{ incident.cause_incident }}</td>
+                    <td>{{ incident.Description }}</td>
+                    <td>{{ incident.rapporteur }}</td>
+                    <td>{{ incident.proprietaire }}</td>
+                    <td>
+                        <a href="{% url 'delete_incident' incident.id %}" class="btn btn-red">Supprimer</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <footer>
+        &copy; 2024 CMDS COOP-CA. Tous droits réservés.
+    </footer>
+</body>
+
+</html>
+
+

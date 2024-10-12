@@ -1,0 +1,143 @@
+<!-- delete_incident.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmation de Suppression</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', serif;
+            font-size: 20px;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 2000px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+            text-align: center;
+        }
+
+        .confirmation-container {
+            margin-top: 20px;
+        }
+
+        .message {
+            color: #3c763d;
+            background-color: #dff0d8;
+            border: 1px solid #d6e9c6;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 4px;
+        }
+
+        p {
+            margin: 10px 0;
+        }
+
+        button {
+            background-color: #dc3545;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #c82333;
+        }
+
+        .btn-blue {
+            background-color: #282f1b;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-blue:hover {
+            background-color: #0056b3;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            text-align: center;
+            color: #b5cee9;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var submitButton = document.querySelector('button[type="submit"]');
+            var confirmationInput = document.querySelector('input[name="confirmation"]');
+            var verificationCodeInput = document.querySelector('#verification_code');
+    
+            submitButton.addEventListener('click', function (event) {
+                var confirmationChecked = confirmationInput.checked;
+                var verificationCode = verificationCodeInput.value;
+    
+                // Check if the confirmation checkbox is checked and the verification code is correct
+                if (confirmationChecked && verificationCode === 'CMDS@0031') {
+                    // Continue with the form submission
+                    return true;
+                } else {
+                    // Prevent form submission if the conditions are not met
+                    alert('Veuillez cocher la case de confirmation et entrer le code de vérification correct.');
+                    event.preventDefault();
+                    return false;
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <h2>CONFIRMATION DE SUPPRESSION</h2>
+        <div class="confirmation-container">
+            <!-- Afficher le message de demande de suppression -->
+            {% if messages %}
+                {% for message in messages %}
+                    <p class="message">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+
+            <p>Voulez-vous vraiment supprimer l'incident à la date du "{{ incident.date_incident }}" à "{{ incident.lieu }}" au puits {{ incident.proprietaire }} , ayant causé {{ incident.Nombre_cas }} cas {{ incident.type_incident }} ?</p>
+
+            <form method="post">
+                {% csrf_token %}
+                
+                <label for="confirmation">Confirmez la suppression :</label>
+                <input type="checkbox" name="confirmation" required>
+                
+                <button type="submit">Oui, Supprimer</button>
+                <label for="verification_code">Code de Vérification:</label>
+                <input type="password" id="verification_code" name="verification_code" required>
+            </form>
+
+            <a href="{% url 'visualiser_incidents' %}" class="btn-blue">Voir la liste des incidents</a>
+            <a href="{% url 'accueil' %}" class="btn-blue">Retour à l'accueil</a>
+        </div>
+    </div>
+</body>
+
+</html>

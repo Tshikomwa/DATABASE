@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire Exploitant</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-size: 18px; /* Taille du texte */
+        }
+        .container {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            max-width: 1000px;
+            background-color: #a9e6f5;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #000103;
+            font-size: 28px; /* Taille du titre */
+            font-weight: bold;
+        }
+        label {
+            font-weight: bold;
+            font-size: 18px; /* Taille des étiquettes */
+        }
+        input, select, textarea {
+            background-color: #61b0f1; /* Couleur des champs de saisie */
+            font-size: 16px; /* Taille des textes dans les champs */
+        }
+        input[type="text"], input[type="date"], input[type="file"], select, textarea {
+            padding: 10px;
+        }
+        .action-buttons a {
+            display: block;
+            margin: 15px 0;
+            padding: 12px 20px;
+            text-decoration: none;
+            color: #ffffff;
+            background-color: #4f46e5;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            cursor: pointer;
+            font-size: 18px;
+            text-align: center;
+        }
+        .action-buttons a:hover {
+            background-color: #3730a3;
+            transform: translateY(-3px);
+        }
+        .action-buttons a.ges_adm {
+            background-color: #28a745;
+        }
+        .action-buttons a.ges_adm:hover {
+            background-color: #1e7e34;
+        }
+        .action-buttons a.q_t {
+            background-color: #dc3545;
+        }
+        .action-buttons a.q_t:hover {
+            background-color: #c82333;
+        }
+        .form-error {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="container">
+        <h2 class="text-center mb-4">FORMULAIRE D'ENREGISTREMENT</h2>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+    
+            {% if echec_enregistrement %}
+                <div class="alert alert-danger" role="alert">
+                    Veuillez corriger les erreurs ci-dessous.
+                </div>
+            {% endif %}
+    
+            <!-- Nom, Post-nom et Prénom -->
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label for="id_nom" class="form-label">Nom</label>
+                    <input type="text" class="form-control {% if form.nom.errors %}is-invalid{% endif %}" placeholder="Entrez votre nom" id="id_nom" name="nom" value="{{ form.nom.value|default_if_none:'' }}">
+                    <div class="invalid-feedback">
+                        {% for error in form.nom.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="id_post_nom" class="form-label">Post-nom</label>
+                    <input type="text" class="form-control {% if form.post_nom.errors %}is-invalid{% endif %}" placeholder="Entrez votre post-nom" id="id_post_nom" name="post_nom" value="{{ form.post_nom.value|default_if_none:'' }}">
+                    <div class="invalid-feedback">
+                        {% for error in form.post_nom.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="id_prenom" class="form-label">Prénom</label>
+                    <input type="text" class="form-control {% if form.prenom.errors %}is-invalid{% endif %}" placeholder="Entrez votre prénom" id="id_prenom" name="prenom" value="{{ form.prenom.value|default_if_none:'' }}">
+                    <div class="invalid-feedback">
+                        {% for error in form.prenom.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+    
+            <!-- Sexe et Lieu de naissance -->
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="id_sexe" class="form-label">Sexe</label>
+                    <select class="form-control {% if form.sexe.errors %}is-invalid{% endif %}" id="id_sexe" name="sexe">
+                        <option value="">Sélectionnez le sexe</option>
+                        <option value="M" {% if form.sexe.value == "M" %}selected{% endif %}>Masculin</option>
+                        <option value="F" {% if form.sexe.value == "F" %}selected{% endif %}>Féminin</option>
+                    </select>
+                    <div class="invalid-feedback">
+                        {% for error in form.sexe.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="id_lieu_naissance" class="form-label">Lieu de naissance</label>
+                    <input type="text" class="form-control {% if form.lieu_naissance.errors %}is-invalid{% endif %}" placeholder="Entrez votre lieu de naissance" id="id_lieu_naissance" name="lieu_naissance" value="{{ form.lieu_naissance.value|default_if_none:'' }}">
+                    <div class="invalid-feedback">
+                        {% for error in form.lieu_naissance.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Date de naissance et État civil -->
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="id_date_naissance" class="form-label">Date de naissance</label>
+                    <input type="text" class="form-control {% if form.date_naissance.errors %}is-invalid{% endif %} date-picker "placeholder="Entrez votre date de naissance" id="id_date_naissance" name="date_naissance" value="{{ form.date_naissance.value|default_if_none:'' }}">
+                    <div class="invalid-feedback">
+                        {% for error in form.date_naissance.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                </div>                
+                <div class="col-md-6">
+                    <label for="id_etat_civil" class="form-label">État civil</label>
+                    <select class="form-control {% if form.etat_civil.errors %}is-invalid{% endif %}" id="id_etat_civil" name="etat_civil">
+                        <option value="">Sélectionnez l'état civil</option>
+                        <option value="C" {% if form.etat_civil.value == "C" %}selected{% endif %}>Célibataire</option>
+                        <option value="M" {% if form.etat_civil.value == "M" %}selected{% endif %}>Marié(e)</option>
+                        <option value="D" {% if form.etat_civil.value == "D" %}selected{% endif %}>Divorcé(e)</option>
+                        <option value="V" {% if form.etat_civil.value == "V" %}selected{% endif %}>Veuf/Veuve</option>
+                    </select>
+                    <div class="invalid-feedback">
+                        {% for error in form.etat_civil.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nom du conjoint et Nombre d'enfants -->
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="id_nom_conjoint" class="form-label">Nom du conjoint</label>
+                    <input type="text" class="form-control {% if form.nom_conjoint.errors %}is-invalid{% endif %}" placeholder="Entrez le nom du/de la conjoint(e)" id="id_nom_conjoint" name="nom_conjoint" value="{{ form.nom_conjoint.value|default_if_none:'' }}">
+                    <div class="invalid-feedback">
+                        {% for error in form.nom_conjoint.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="id_nb_enfants" class="form-label">Nombre d'enfants</label>
+                    <input type="number" class="form-control {% if form.nb_enfants.errors %}is-invalid{% endif %}" id="id_nb_enfants" name="nb_enfants" placeholder="Entrez le nombre d'enfants" value="{{ form.nb_enfants.value }}">
+                    <div class="invalid-feedback">
+                        {% for error in form.nb_enfants.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Adresse -->
+            <div class="mb-3">
+                <label for="id_adresse" class="form-label">Adresse</label>
+                <textarea class="form-control {% if form.adresse.errors %}is-invalid{% endif %}" placeholder="Entrez votre adresse" id="id_adresse" name="adresse">{{ form.adresse.value|default_if_none:'' }}</textarea>
+                <div class="invalid-feedback">
+                    {% for error in form.adresse.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Niveau d'étude et Fonction -->
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="id_niveau_etude" class="form-label">Niveau d'étude</label>
+                    <select class="form-control {% if form.niveau_etude.errors %}is-invalid{% endif %}" id="id_niveau_etude" name="niveau_etude">
+                        <option value="">Sélectionnez votre niveau d'étude</option>
+                        <option value="Aucun" {% if form.niveau_etude.value == "Aucun" %}selected{% endif %}>Aucun</option>
+                        <option value="Primaire" {% if form.niveau_etude.value == "Primaire" %}selected{% endif %}>Primaire</option>
+                        <option value="Secondaire" {% if form.niveau_etude.value == "Secondaire" %}selected{% endif %}>Secondaire</option>
+                        <option value="Diplômé(e) d'Etat" {% if form.niveau_etude.value == "Diplômé(e) d'Etat" %}selected{% endif %}>Diplômé(e) d'Etat</option>
+                        <option value="Gradué(e)" {% if form.niveau_etude.value == "Gradué(e)" %}selected{% endif %}>Gradué(e)</option>
+                        <option value="Licencié(e)" {% if form.niveau_etude.value == "Licencié(e)" %}selected{% endif %}>Licencié(e)</option>
+                        <option value="Ingénieur(e)" {% if form.niveau_etude.value == "Ingénieur(e)" %}selected{% endif %}>Ingénieur(e)</option>
+                        <option value="Docteur" {% if form.niveau_etude.value == "Docteur" %}selected{% endif %}>Docteur</option>
+                        <option value="Autre" {% if form.niveau_etude.value == "Autre" %}selected{% endif %}>Autre</option>
+                    </select>
+                    <div class="invalid-feedback">
+                        {% for error in form.niveau_etude.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="id_fonction" class="form-label">Fonction</label>
+                    <select class="form-control {% if form.fonction.errors %}is-invalid{% endif %}" id="id_fonction" name="fonction">
+                        <option value="">Sélectionnez votre fonction</option>
+                        <option value="Creuseur" {% if form.fonction.value == "Creuseur" %}selected{% endif %}>Creuseur</option>
+                        <option value="Constructeur" {% if form.fonction.value == "Constructeur" %}selected{% endif %}>Constructeur</option>
+                        <option value="Agent de Sécurité" {% if form.fonction.value == "Agent de Sécurité" %}selected{% endif %}>Agent de Sécurité</option>
+                        <option value="Membre du Comité" {% if form.fonction.value == "Membre du Comité" %}selected{% endif %}>Membre du Comité</option>
+                        <option value="Membre de la Coopérative" {% if form.fonction.value == "Membre de la Coopérative" %}selected{% endif %}>Membre de la Coopérative</option>
+                        <option value="Laveuse" {% if form.fonction.value == "Laveuse" %}selected{% endif %}>Laveuse</option>
+                        <option value="Négociant" {% if form.fonction.value == "Négociant" %}selected{% endif %}>Négociant</option>
+                        <option value="Sponsor" {% if form.fonction.value == "Sponsor" %}selected{% endif %}>Sponsor</option>
+                        <option value="Agent de dépôt" {% if form.fonction.value == "Agent de dépôt" %}selected{% endif %}>Agent de dépôt</option>
+                        <option value="Agent de Nettoyage" {% if form.fonction.value == "Agent de Nettoyage" %}selected{% endif %}>Agent de Nettoyage</option>
+                        <option value="Agent de Bureau" {% if form.fonction.value == "Agent de Bureau" %}selected{% endif %}>Agent de Bureau</option>
+                        <option value="Autre" {% if form.fonction.value == "Autre" %}selected{% endif %}>Autre</option>
+                    </select>
+                    <div class="invalid-feedback">
+                        {% for error in form.fonction.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+                <!-- Téléphone et Photo -->
+                <div class="row mb-3">
+                    <!-- Téléphone -->
+                    <div class="col-md-6">
+                        <label for="id_telephone" class="form-label">Téléphone</label>
+                        <input type="tel" class="form-control {% if form.telephone.errors %}is-invalid{% endif %}" placeholder="Votre numéro de téléphone" id="id_telephone" name="telephone" value="{{ form.telephone.value|default_if_none:''}}">
+                        <div class="invalid-feedback">
+                            {% for error in form.telephone.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- Photo -->
+                    <div class="col-md-6">
+                        <label for="id_photo" class="form-label">Photo</label>
+                        <input type="file" class="form-control {% if form.photo.errors %}is-invalid{% endif %}" id="id_photo" name="photo" required>
+                        <div class="invalid-feedback">
+                            {% for error in form.photo.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                        <div class="mt-2">
+                            <img id="photoPreview" class="img-thumbnail" style="max-width: 150px;"/>
+                        </div>
+                    </div>
+
+                </div>
+            <!-- Bouton de soumission -->
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary btn-block">Enregistrer</button>
+            </div>
+
+            <div class="action-buttons">
+                <a href="{% url 'visualisation' %}" class="ges_adm">Visualisation</a>
+                <a href="{% url 'accueil' %}" class="q_t">Retour</a>
+            </div>
+
+        </form>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Script pour l'aperçu de la photo -->
+    <script>
+        document.getElementById('id_photo').addEventListener('change', function(event) {
+            const [file] = event.target.files;
+            if (file) {
+                document.getElementById('photoPreview').src = URL.createObjectURL(file);
+            }
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            flatpickr('.date-picker', {
+                dateFormat: 'd-m-Y', // Format de date, personnalisez selon vos besoins
+                locale: 'fr'        // Langue pour le calendrier, modifiez selon votre préférence
+            });
+        });
+    </script>
+
+</body>
+</html>
+
+
+
+
+

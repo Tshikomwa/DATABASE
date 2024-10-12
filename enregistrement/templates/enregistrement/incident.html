@@ -1,0 +1,208 @@
+<!-- incident_form.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ENREGISTREMENT DES INCIDENTS AUX SITES MINIERS DE LA CMDS</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', serif;  /* Changement de police */
+            font-size: 20px;  /* Agrandissement de la taille de police */
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+            text-align: center;  /* Aligner le titre au centre */
+        }
+
+        form {
+            display: grid;
+            grid-gap: 16px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 15px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 20px;  /* Agrandir la taille de la police pour les champs de saisie */
+        }
+
+        button {
+            background-color: #c9f0f0;
+            color: #1c1a1a;
+            padding: 2px 1px;  /* Agrandir la taille du bouton */
+            border: skyblue;
+            border-radius: 4px;
+            text-align: center;
+            cursor: pointer;
+            display: inline-block;
+            font-size: 20px;  /* Agrandir la taille de la police pour le bouton */
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            text-align: center;
+            color: #b5cee9;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+        }
+        .btn-blue {
+            background-color: #282f1b;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-blue:hover {
+            background-color: #0056b3;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+
+        .btn-red {
+            background-color: #e40a27;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+
+        button:hover {
+            background-color: #84aac0;
+        }
+
+        a {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+            color: #007bff;
+            text-decoration: green;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var submitButton = document.querySelector('button[type="submit"]');
+            var codeInput = document.querySelector('#verification_code');
+            var showCodeButton = document.querySelector('#show_code');
+
+            // Function to toggle visibility of the verification code
+            function toggleCodeVisibility() {
+                if (codeInput.type === 'password') {
+                    codeInput.type = 'text';
+                } else {
+                    codeInput.type = 'password';
+                }
+            }
+
+            // Event listener for the show code button
+            showCodeButton.addEventListener('click', function () {
+                toggleCodeVisibility();
+            });
+
+            // Event listener for the form submission
+            submitButton.addEventListener('click', function (event) {
+                var verificationCode = codeInput.value;
+
+                // Check if the verification code is correct
+                if (verificationCode === 'CMDS@0031') {
+                    // Continue with the form submission
+                    return true;
+                } else {
+                    // Prevent form submission if the verification code is incorrect
+                    alert('Incorrect verification code. Please enter the correct code.');
+                    event.preventDefault();
+                    return false;
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <h2>ENREGISTREMENT DES INCIDENTS AUX SITES MINIERS</h2>
+        <form method="post" action="{% url 'enregistrer_incident' %}">
+            {% csrf_token %}
+
+            <a href="{% url 'visualiser_incidents' %}" class="btn-blue">Liste des incidents enregistés</a>
+            <a href="{% url 'accueil' %}" class="btn-red">Retour à l'accueil</a>
+
+            <label for="verification_code">Verification Code:</label>
+            <input type="password" id="verification_code" name="verification_code" required>
+            <button type="button" id="show_code">Appuyer pour lire le code de vérification</button>
+
+            <label for="date_incident">Date et Heure de l'incident :</label>
+            <input type="datetime-local" id="date_incident" name="date_incident" required>
+
+            <label for="lieu">Lieu :</label>
+            <input type="text" id="lieu" name="lieu" required>
+
+            <label for="type_incident">Type d'incident :</label>
+            <select id="type_incident" name="type_incident" required>
+                <option value="Mortel">Mortel</option>
+                <option value="Non-mortel">Non mortel</option>
+            </select>
+
+            <label for="Nombre_cas">Nombre de cas :</label>
+            <input type="number" id="Nombre_cas" name="Nombre_cas" required min="1">           
+
+            <label for="Noms_accidentes">Noms des personnes accidentées :</label>
+            <input type="text" id="Noms_accidentes" name="Noms_accidentes" required>
+
+            <label for="cause_incident">Cause de l'incident :</label>
+            <input type="text" id="cause_incident" name="cause_incident" required>
+
+            <label for="Description">Description :</label>
+            <textarea id="Description" name="Description" rows="4" required></textarea>
+
+            <label for="rapporteur">Rapporteur :</label>
+            <input type="text" id="rapporteur" name="rapporteur" required>
+
+            <label for="proprietaire">Propriétaire du puits :</label>
+            <input type="text" id="proprietaire" name="proprietaire" required>
+
+            <label for="actions">Actions prises :</label>
+            <textarea id="actions" name="actions" rows="4" required></textarea>
+
+            <button type="submit">Enregistrer</button>
+        </form>
+
+
+    </div>
+</body>
+
+</html>
+
